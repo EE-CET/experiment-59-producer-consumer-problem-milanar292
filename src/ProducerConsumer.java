@@ -2,7 +2,6 @@ class SharedBuffer {
     private int item;
     private boolean available = false;
 
-    // Producer method
     public synchronized void produce(int value) throws InterruptedException {
         while (available) {
             wait();
@@ -13,7 +12,6 @@ class SharedBuffer {
         notify();
     }
 
-    // Consumer method
     public synchronized void consume() throws InterruptedException {
         while (!available) {
             wait();
@@ -24,7 +22,6 @@ class SharedBuffer {
     }
 }
 
-// Producer Thread
 class Producer extends Thread {
     SharedBuffer buffer;
 
@@ -43,7 +40,6 @@ class Producer extends Thread {
     }
 }
 
-// Consumer Thread
 class Consumer extends Thread {
     SharedBuffer buffer;
 
@@ -62,7 +58,7 @@ class Consumer extends Thread {
     }
 }
 
-public class Main {
+public class ProducerConsumer {
     public static void main(String[] args) {
         SharedBuffer buffer = new SharedBuffer();
         Producer p = new Producer(buffer);
